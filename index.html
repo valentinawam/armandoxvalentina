@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Romantic Date Picker</title>
+    <style>
+      body {
+        color: #ff4081;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+      .hidden {
+        display: none;
+      }
+      .question {
+        margin-bottom: 20px;
+        color: #ff4081;
+      }
+      .options img {
+        color: #ff4081;
+        width: 500px;
+        height: 333px;
+        cursor: pointer;
+        border-radius: 10px;
+        margin: 10px;
+        transition: 0.3s;
+      }
+      .options img:hover {
+        transform: scale(1.1);
+        color: #ff4081;
+      }
+      .hidden {
+        display: none;
+      }
+      #results #introduction {
+        font-size: 20px;
+        margin-top: 20px;
+        color: #ff4081;
+      }
+      #results p {
+        font-size: 18px;
+        color: #ff4081;
+        font-weight: bold;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        background-color: #ff4081;
+        color: white;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #e6005c;
+      }
+      .grass-svg {
+        position: bottom;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        padding: 20px;
+      }
+
+      .gallery img {
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery img:hover {
+        transform: scale(1.1);
+      }
+
+      .lightbox {
+        display: none; /* Completely hides it on load */
+        visibility: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .lightbox img {
+        max-width: 90%;
+        max-height: 90vh;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+
+      .lightbox span {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body style="background-color: #fce4ec">
+    <div id="introduction">
+      <h1 style="border: 5px dashed pink; padding: 10px">
+        Welcome to the Romantic Date Picker ❤️
+      </h1>
+      <p style="font-size: 24px; text-align: center">
+        🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
+      </p>
+      <p style="border: 3px solid #ff4081; padding: 15px; border-radius: 10px">
+        My dearest, Armando, i intended to code (Writting HTML and CSS still
+        counts as coding!) from scratch this website to commemorate our love and
+        beautifully blossoming relationship- the sheer lengths i would go for
+        you knows no bounds. I hope you enjoy this fun website and maybe you can
+        share it with friends looking for ideas (it’s completely PG!).<span
+          style="font-weight: bold"
+        >
+          Happy Valentine’s Day, My Love. I love you and i miss you
+          always💕</span
+        >
+      </p>
+
+      <button onclick="showLetter()">Open Your Letter 💌</button>
+      <p
+        id="letter"
+        style="
+          display: none;
+          border: 3px dotted #86b854;
+          padding: 15px;
+          border-radius: 10px;
+        "
+      >
+        You mean the world to me... ❤️ When i started writing this i initially
+        thought of doing a complete rerun of our past year but that felt too
+        cheesy and a bit more of an anniversary moment. Then i dug deeper into
+        our last valentine’s. It wasn’t exactly a peak in our relationship (the
+        three month rule 🙁) But even when things were tough, the thing that
+        kept us together was us. Us wanting to try and loving eachother enough
+        to see the bad parts and love them anyways. I never thought i would find
+        a love like that. And if taking the bus all the way to watford with
+        empty stomachs didn’t break us apart, i definitely think we’re
+        unstoppable. It also could've been the sheer amount of beers we had the
+        night before which really drove us insane the following day. Anyways, i
+        hope you can see and feel how much effort and love and blood and sweat
+        and tears i put into this. I know it will have all been worth it the
+        second i see a smile on your face. I can truly imagine the rest of our
+        lives together,
+        <span style="font-weight: bold">I Love You, Mandy xoxo</span>
+      </p>
+
+      <p style="font-size: 24px; text-align: center">
+        🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
+      </p>
+
+      <div class="gallery">
+        <img src="IMG_1.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_2.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_3.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_4.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_5.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_6.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_7.jpg" onclick="openLightbox(this)" />
+        <img src="IMG_8.jpg" onclick="openLightbox(this)" />
+      </div>
+      <div id="lightbox" class="lightbox">
+        <span onclick="closeLightbox()">❌</span>
+        <img id="lightboxImg" />
+      </div>
+
+      <p style="font-size: 24px; text-align: center">
+        🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
+      </p>
+
+      <button id="startButton" onclick="startQuiz()">Start Planning!</button>
+    </div>
+
+    <h1 style="border: 5px dashed pink; padding: 10px">
+      Pick Our Next Valentine's Date ❤️
+    </h1>
+
+    <div id="question1" class="question">
+      <h2>How shall we start our morning?</h2>
+      <div class="options">
+        <img
+          src="https://quisinequeenb.com/wp-content/uploads/2019/10/egg-cheese-croissant-1-1-720x540.jpg"
+          alt="Pastries and Eggs"
+          onclick="selectOption(1, 'Pastries and Eggs')"
+        />
+        <img
+          src="https://cloudfront-us-east-1.images.arcpublishing.com/civicnewscompany/XPQSNKKZJVGWVKCT2LGHCG4P4M.jpg"
+          alt="Instagram"
+          onclick="selectOption(1, 'Instagram')"
+        />
+        <img
+          src="https://www.helsana.ch/dam/assets/01-bildwelt/04-stockbilder/meditation-tipps-und-anleitung-fuer-einsteiger.hlsimg.2_1.w768.jpg"
+          alt="Meditation"
+          onclick="selectOption(1, 'Meditation')"
+        />
+      </div>
+    </div>
+
+    <div id="question2" class="question hidden">
+      <h2>Let's pick a daytime activity!</h2>
+      <div class="options">
+        <img
+          src="https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,q_75,w_1200/v1/crm/ftlauderdale/Gold-Rush_D9BB609C-581E-46DD-9FD1F165CA52E716_6d26fa85-ab80-461f-9a3317819c3e2218.jpg"
+          alt="Escape Room"
+          onclick="selectOption(2, 'Escape Room')"
+        />
+        <img
+          src="https://www.bowlero.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F6gvyj3hhelpa%2F1IHRUO9REQCqThYSPEGgZi%2F3c568180ecd834b7e4c26d5248a41984%2FCenterLandingPage_BowleroLosAngeles2_900x600_041924.jpg&w=3840&q=75"
+          alt="Bowling"
+          onclick="selectOption(2, 'Bowling')"
+        />
+        <img
+          src="https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/1518801341-1703731145719.jpg"
+          alt="Hike"
+          onclick="selectOption(2, 'Hike')"
+        />
+      </div>
+    </div>
+
+    <div id="question3" class="question hidden">
+      <h2>What's for LUNCH?</h2>
+      <div class="options">
+        <img
+          src="https://blog.italotreno.it/wp-content/uploads/2023/10/Cosa_mangiare_Roma_10_piatti_imperdibili.jpg"
+          alt="Italian"
+          onclick="selectOption(3, 'Italian')"
+        />
+        <img
+          src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/22/0a/1a/los-tacos-son-por-excelencia.jpg?w=600&h=-1&s=1"
+          alt="Mexican"
+          onclick="selectOption(3, 'Mexican')"
+        />
+        <img
+          src="https://c.stocksy.com/a/eSsG00/z9/4022600.jpg"
+          alt="Something at Home"
+          onclick="selectOption(3, 'Something at Home')"
+        />
+      </div>
+    </div>
+
+    <div id="question4" class="question hidden">
+      <h2>Let's wind down for the afternoon:</h2>
+      <div class="options">
+        <img
+          src="https://wonderwall.sg/images/default-source/content/dam/wonderwall/images/2022/04/got-such-thing-in-singapore-ah-competing-in-the-pokemon-trading-card-game/got-such-thing---pokemon-tcg_rectangle.jpg.jpg?sfvrsn=32011983_0"
+          alt="Pokemon"
+          onclick="selectOption(4, 'Pokemon')"
+        />
+        <img
+          src="https://img.freepik.com/premium-photo/couple-working-jigsaw-puzzle-together_1346134-17170.jpg"
+          alt="Puzzle"
+          onclick="selectOption(4, 'Puzzle')"
+        />
+        <img
+          src="https://blackhealthmatters.com/wp-content/uploads/2019/01/Happy-Couples-Cuddle-at-Night.jpg"
+          alt="Cuddle"
+          onclick="selectOption(4, 'Cuddle')"
+        />
+      </div>
+    </div>
+
+    <div id="question5" class="question hidden">
+      <h2>We gotta eat DINNER!</h2>
+      <div class="options">
+        <img
+          src="https://www.novachef.es/media/images/pizza-pepperoni.jpg"
+          alt="Italian"
+          onclick="selectOption(5, 'Italian')"
+        />
+        <img
+          src="https://media.licdn.com/dms/image/D4D12AQHms6F-pcNR2g/article-cover_image-shrink_720_1280/0/1683198860500?e=2147483647&v=beta&t=mCnqjhh4y66gJgTJB5gTr5PuJntCf-9TVOzNrd6udhg"
+          alt="Asian"
+          onclick="selectOption(5, 'Asian')"
+        />
+        <img
+          src="https://www.peelwithzeal.com/wp-content/uploads/2021/02/date-night-cooking-challenge.jpg"
+          alt="Cook Somethng at Home"
+          onclick="selectOption(5, 'Cook Somethng at Home')"
+        />
+      </div>
+    </div>
+
+    <div id="question6" class="question hidden">
+      <h2>I think we're getting a bit sleepy😣</h2>
+      <div class="options">
+        <img
+          src="https://c.stocksy.com/a/mH3J00/z9/4540866.jpg"
+          alt="Movie Night"
+          onclick="selectOption(6, 'Movie Night')"
+        />
+        <img
+          src="https://thumbs.dreamstime.com/b/glass-beer-friends-toast-one-another-glass-beer-friends-toast-one-another-ai-generated-344503396.jpg"
+          alt="Out with friends"
+          onclick="selectOption(6, 'Out with friends')"
+        />
+        <img
+          src="https://static.posters.cz/image/750/art-photo/couple-stargazing-together-with-binoculars-i204716.jpg"
+          alt="Stargazing"
+          onclick="selectOption(6, 'Stargazing')"
+        />
+      </div>
+    </div>
+    <div id="results" class="hidden">
+      <h2>Yay I Can't Wait ❤️</h2>
+      <p id="finalMessage">Specially curated by us!</p>
+      <p id="summary"></p>
+      <button id="replayButton" onclick="restartQuiz()">
+        Plan Another Date! 🔄
+      </button>
+    </div>
+    <div class="flower"></div>
+    <p style="font-size: 24px; text-align: center">
+      🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
+    </p>
+
+    <svg viewBox="0 0 1440 320" class="grass-svg">
+      <path
+        fill="#4CAF50"
+        fill-opacity="1"
+        d="M0,256L48,234.7C96,213,192,171,288,165.3C384,160,480,192,576,202.7C672,213,768,203,864,176C960,149,1056,107,1152,90.7C1248,75,1344,85,1392,90.7L1440,96V320H0Z"
+      ></path>
+    </svg>
+
+    <script>
+      function showLetter() {
+        document.getElementById("letter").style.display = "block";
+      }
+      let selections = {};
+
+      function openLightbox(img) {
+        let lightbox = document.getElementById("lightbox");
+        lightbox.style.display = "flex"; // Use flex to center it
+        lightbox.style.visibility = "visible"; // Make sure it's fully shown
+        document.getElementById("lightboxImg").src = img.src;
+      }
+
+      function closeLightbox() {
+        let lightbox = document.getElementById("lightbox");
+        lightbox.style.display = "none";
+        lightbox.style.visibility = "hidden";
+      }
+
+      function startQuiz() {
+        document.getElementById("startButton").classList.add("hidden"); // Hide Start button
+        document.getElementById("question1").classList.remove("hidden"); // Show first question
+      }
+
+      function selectOption(questionNumber, choice) {
+        selections[questionNumber] = choice;
+
+        document
+          .getElementById("question" + questionNumber)
+          .classList.add("hidden");
+
+        if (document.getElementById("question" + (questionNumber + 1))) {
+          document
+            .getElementById("question" + (questionNumber + 1))
+            .classList.remove("hidden");
+        } else {
+          showResults();
+        }
+      }
+
+      function showResults() {
+        document.getElementById("results").classList.remove("hidden");
+        document.getElementById("summary").innerHTML = `
+        ☀️ Morning: <strong>${selections[1]}</strong><br>
+        🎭 Activity: <strong>${selections[2]}</strong>
+                🍽️ Lunch: <strong>${selections[3]}</strong><br>
+                🧘‍♀️ Relax: <strong>${selections[4]}</strong>
+                🍴 Dinner: <strong>${selections[5]}</strong><br>
+                🌃 Night: <strong>${selections[6]}</strong>
+            `;
+      }
+      function restartQuiz() {
+        selections = {}; // Reset selections
+        document.getElementById("results").classList.add("hidden"); // Hide results
+        document.getElementById("question1").classList.add("hidden"); // Hide first question
+        document.getElementById("question2").classList.add("hidden"); // Hide second question
+        document.getElementById("startButton").classList.remove("hidden"); // Show start button again
+      }
+    </script>
+  </body>
+</html>
