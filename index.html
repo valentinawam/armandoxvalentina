@@ -110,6 +110,17 @@
         color: white;
         cursor: pointer;
       }
+      .countdown-container {
+    text-align: center;
+    font-size: 24px;
+    color: lightpink;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid lightpink;
+    border-radius: 10px;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
+      }
     </style>
   </head>
   <body style="background-color: #fce4ec">
@@ -183,6 +194,16 @@
       <p style="font-size: 24px; text-align: center">
         🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
       </p>
+
+      <div class="countdown-container">
+        <h2>Next Time We See Each Other In:</h2>
+        <p id="countdown"></p>
+    </div>
+
+    
+    <p style="font-size: 24px; text-align: center">
+      🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺🌸🌼🌷🌹🌻🌺
+    </p>
 
       <button id="startButton" onclick="startQuiz()">Start Planning!</button>
     </div>
@@ -395,6 +416,26 @@
         document.getElementById("question2").classList.add("hidden"); // Hide second question
         document.getElementById("startButton").classList.remove("hidden"); // Show start button again
       }
+
+      function updateCountdown() {
+        const eventDate = new Date("2025-02-26 21:00:00").getTime(); 
+        const now = new Date().getTime();
+        const timeLeft = eventDate - now;
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m`;
+
+        if (timeLeft < 0) {
+            document.getElementById("countdown").innerHTML = "💖 It's time! 💖";
+            clearInterval(timerInterval);
+        }
+    }
+
+    updateCountdown(); // Run once immediately
+    const timerInterval = setInterval(updateCountdown, 1000); // Update every second
     </script>
   </body>
 </html>
